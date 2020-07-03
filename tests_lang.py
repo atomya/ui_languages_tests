@@ -34,6 +34,17 @@ class TestLocalization:
 
 @pytest.mark.parametrize("language", ["ru", "en", "de", "es", "fil", "fr", "hi", "it", "ja", "ko", "pt-br", "tr", "vi", "zh", "zh-tw"])
 class TestFunctional:
+    def test_guest_can_change_language_with_button(self, browser, language):
+        browser.implicitly_wait(5)
+        link = "https://coinmarketcap.com/"
+        button = '//div[@class="cmc-popover"]/div[@class="cmc-popover__trigger"]/button[@title]'
+        browser.get(link)
+        browser.find_element_by_xpath(button).click()
+        drop_elem = browser.find_element_by_xpath('//div[@class = "frscwy-3 frscwy-4 iUHqnq"]/a[@href="/'+language+'/"]')
+        drop_elem.click()
+        actual_result = browser.find_element_by_xpath(button).text
+        assert actual_result == language.upper()
+
     @pytest.mark.parametrize("css_selector, expect_header", [(".jopABT", "Log In"), (".gXirId.cmc-link", "Create an Account")])
     def test_guest_can_move_to_pages(self, browser, language, css_selector, expect_header):
         browser.implicitly_wait(5)
