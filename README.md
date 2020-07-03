@@ -17,5 +17,5 @@ pip install -r requirements.txt
 ### Run the tests:
 ```
 Command to run tests for review:
-pytest -s -v test_lang.py
+pytest -s -v tests_lang.py
 ```
